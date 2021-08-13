@@ -222,6 +222,7 @@ hacker-news article ul h1{
     color: hsl(225DEG, 20%, 25%);
 }
 hacker-news article ul h1 a{
+    display: block;
     font-weight: 600;
     font-style: italic;
     font-size: 1.5rem;
