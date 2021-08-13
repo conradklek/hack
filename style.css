@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+*, *::before, *::after{ box-sizing: border-box }
+
+:root{ 
+    font-size: 10px;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    font-family: "IBM Plex Sans";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: grid;
+    place-content: center;
+    background: hsl(230DEG, 15%, 98%);
+}
+hacker-news{
+    width: 32rem;
+    height: 60rem;
+    overflow: hidden;
+    background: hsl(0DEG, 0%, 100%);
+    border-radius: .25rem;
+    box-shadow: 
+        -1rem -1rem 2rem hsla(0DEG, 0%, 100%, .8),
+        0 0 1.5rem hsla(225DEG, 100%, 20%, .05),
+        0 .5rem .75rem hsla(225DEG, 100%, 20%, .05),
+        0 1rem 1.5rem hsla(225DEG, 100%, 20%, .025);
+    
+    display: grid;
+    grid-template-rows: 4rem 1fr;
+    grid-template-columns: repeat(5, auto);
+    grid-template-areas: "t1 t2 t3 t4 t5" "ol ol ol ol ol";
+    padding: 1rem 1rem 0 1rem;
+    position: relative;
+}
+
+hacker-news label[for="news"]   { grid-area: t1 }
+hacker-news label[for="newest"] { grid-area: t2 }
+hacker-news label[for="ask"]    { grid-area: t3 }
+hacker-news label[for="show"]   { grid-area: t4 }
+hacker-news label[for="jobs"]   { grid-area: t5 }
+
+hacker-news input[type="radio"]{
+    display: none;
+}
+hacker-news label{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-content: center;
+    user-select: none;
+    touch-action: manipulation;
+    cursor: pointer;
+    z-index: 3;
+}
+hacker-news label:nth-of-type(1){ transition: transform 800ms 0ms }
+hacker-news label:nth-of-type(2){ transition: transform 800ms 100ms }
+hacker-news label:nth-of-type(3){ transition: transform 800ms 200ms }
+hacker-news label:nth-of-type(4){ transition: transform 800ms 300ms }
+hacker-news label:nth-of-type(5){ transition: transform 800ms 400ms }
+
+input:checked + label{
+    z-index: 4;
+}
+hacker-news label span{
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -.032rem;
+    color: hsl(225DEG, 20%, 25%);
+    position: relative;
+    padding: .5rem 1rem .5rem 1rem;
+    transition: color 100ms;
+}
+hacker-news label span::before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: .25rem;
+    transition: box-shadow 200ms;
+}
+input:checked + label span{
+    color: hsl(225DEG, 100%, 55%);
+    text-shadow: 0 .25rem .25rem hsla(225DEG, 100%, 60%, .1);
+}
+input:checked + label span::before{
+    box-shadow:
+        0 .25rem .5rem hsla(225DEG, 100%, 25%, .05),
+        0 .5rem .75rem hsla(225DEG, 100%, 50%, .05);
+}
+
+hacker-news ol{
+    grid-area: ol;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 2rem 0 0 0;
+    list-style: none;
+    pointer-events: none;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(-2rem);
+    transition: transform 600ms 0ms, opacity 400ms 0ms;
+    z-index: 1;
+}
+input:checked + label + ol{
+    transform: translateY(0);
+    pointer-events: all;
+    opacity: 1;
+}
+hacker-news ol li{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    margin: .5rem 1rem .5rem 1rem;
+    box-shadow: 0 .25rem .5rem hsla(225DEG, 100%, 20%, .05);
+    opacity: 0;
+    transform: scale(.9);
+    transition: opacity 400ms 0ms, transform 200ms 0ms;
+}
+input:checked + label + ol li{
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 400ms 300ms, transform 200ms 300ms;
+}
+hacker-news ol li span{
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: hsl(225DEG, 20%, 25%);
+}
+hacker-news ol li span a{
+    font-weight: 600;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: hsl(225DEG, 100%, 50%);
+}
+hacker-news ol li span a:visited{
+    color: hsl(225DEG, 30%, 80%);
+    font-style: normal;
+}
+hacker-news ol li div{
+    display: flex;
+    flex-direction: row;
+    user-select: none;
+    touch-action: manipulation;
+    margin: .5rem 0 0 0;
+    cursor: pointer;
+}
+hacker-news ol li div p{
+    margin: 0;
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: 1rem;
+    color: hsl(225DEG, 20%, 60%);
+}
+hacker-news ol li div p::after{
+    content: "|";
+    margin: 0 .25rem 0 .25rem;
+    color: hsl(225DEG, 50%, 94%);
+    font-weight: 700;
+}
+hacker-news ol li div p:last-of-type::after{
+    content: "";
+    user-select: none;
+}
+
+hacker-news article{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 2;
+    box-shadow: 
+        inset 0 7rem 2rem hsla(0DEG, 0%, 100%, 1),
+        inset 0 7rem 3rem hsla(0DEG, 0%, 100%, 1),
+        inset 0 -4rem 3rem hsla(0DEG, 0%, 100%, 1),
+        inset 0 -3rem 2rem hsla(0DEG, 0%, 100%, .5),
+        inset 0 -3rem 2rem hsla(0DEG, 0%, 100%, .5),
+        inset 0 -4rem 1rem hsla(0DEG, 0%, 100%, .5);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    transition: background-color 400ms 0ms;
+}
+hacker-news article ul{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    padding: 0 0 1rem 0;
+    list-style: none;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    opacity: 0;
+    transition: opacity 400ms 0ms;
+}
+hacker-news.read article ul{
+    opacity: 1;
+    transition: opacity 400ms 600ms;
+}
+hacker-news article ul h1{
+    margin: 0;
+    padding: 1rem 7.5rem 0 1rem;
+    font-size: 2.5rem;
+    line-height: 1.25;
+    letter-spacing: -.064rem;
+    font-weight: 700;
+    color: hsl(225DEG, 20%, 25%);
+}
+hacker-news article ul h1 a{
+    font-weight: 600;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: hsl(225DEG, 100%, 50%);
+}
+hacker-news article ul h1 + div{
+    display: flex;
+    flex-direction: row;
+    user-select: none;
+    touch-action: manipulation;
+    box-shadow: 0 .5rem 1rem hsla(225DEG, 50%, 97%);
+    padding: 1rem 0 1rem 1rem;
+}
+hacker-news article ul h1 + div p{
+    margin: 0;
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: 1rem;
+    color: hsl(225DEG, 20%, 60%);
+}
+hacker-news article ul h1 + div p::after{
+    content: "|";
+    margin: 0 .25rem 0 .25rem;
+    color: hsl(225DEG, 50%, 94%);
+    font-weight: 700;
+}
+hacker-news article ul h1 + div p:last-of-type::after{
+    content: "";
+    user-select: none;
+}
+hacker-news article ul h4{
+    padding: 0 2rem 0 1rem;
+    margin: 2rem 0 2rem 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+hacker-news article ul li{
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 1rem 0 0 1rem;
+    padding: 0 0 0 1rem;
+    border-left: .1rem solid hsl(225DEG, 50%, 97%);
+    border-top: .1rem solid hsl(225DEG, 50%, 97%);
+}
+hacker-news article ul li div{
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: 1rem;
+    margin: .5rem 0 .5rem 0;
+}
+hacker-news article ul li div a{
+    color: hsl(225DEG, 20%, 50%);
+    font-style: italic;
+    text-decoration: none;
+}
+hacker-news article ul li div a span{
+    margin-right: .5rem;
+}
+hacker-news article ul li p{
+    margin: 0;
+    padding: 0 2rem 1rem 0;
+}
+hacker-news article ul li li{
+    padding: 0 0 0 1rem;
+    margin: 0;
+}
+hacker-news article ul > li{
+    border-bottom: .1rem solid hsl(225DEG, 50%, 97%);
+}
+hacker-news article ul li a{
+    color: hsl(225DEG, 100%, 50%);
+    font-style: italic;
+}
+hacker-news article ul li.hide{
+    overflow: hidden;
+    height: 2.5rem;
+    margin: 1rem 0 0 0;
+    padding: 0 0 0 1rem;
+    border: none;
+    border-radius: .2rem 0 0 .2rem;
+    background: hsl(225DEG, 30%, 98%);
+}
+hacker-news article ul li pre{
+    white-space: pre;
+    overflow: scroll;
+    background: hsl(225DEG, 30%, 98%);
+    padding: 1rem 0 1rem 0;
+}
+hacker-news article button{
+    display: block;
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    padding: .5rem 1rem .5rem 1rem;
+    background: hsl(0DEG, 0%, 100%);
+    border-radius: .375rem;
+    border: none;
+    outline: none;
+    font-family: "IBM Plex Sans";
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -.032rem;
+    cursor: pointer;
+    color: hsl(345DEG, 100%, 50%);
+    text-shadow: 0 .25rem .25rem hsla(325DEG, 100%, 60%, .1);
+    box-shadow:
+        0 .25rem .5rem hsla(325DEG, 100%, 25%, .05),
+        0 .5rem .75rem hsla(325DEG, 100%, 50%, .05);
+    transform: scale(.9);
+    opacity: 0;
+    transition: opacity 200ms 0ms, transform 200ms 0ms;
+    z-index: 5;
+}
+hacker-news.read article button{
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 200ms 600ms, transform 200ms 600ms;
+}
+hacker-news.read article{
+    pointer-events: all;
+}
+hacker-news.read label{
+    transform: translateY(-10rem);
+}
+hacker-news.read input:checked + label + ol{
+    opacity: 0;
+    transform: translateY(-2rem);
+}
