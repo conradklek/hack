@@ -4,7 +4,7 @@
     height: 80px;
     position: fixed;
     top: 0;
-    right: 40px;
+    right: 0;
     display: block;
 }
 *, *::before, *::after{ box-sizing: border-box }
